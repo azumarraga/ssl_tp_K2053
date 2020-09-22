@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-/////////SCANNER.H////////
+
 
 
 typedef enum {
@@ -14,18 +14,9 @@ typedef enum {
 } token;
 
 
-extern FILE * archivo;
 
-extern token tokenActual;
-extern char * p;
-extern char *Tokens[];
-extern int auxTI;
-extern int auxTC;
-extern int auxTN;
-extern int auxTE;
+
 char* nombreToken(token tok);
-token prox_token(void);
-void match(token tok);
 
 
 
@@ -33,9 +24,6 @@ void match(token tok);
 
 
 
-
-
-/////////////////////////////
 char* Tokens[] = {"IDENTIFICADOR", "CONSTANTE ENTERA", "NUMERAL", "ERROR", "FIN DE ARCHIVO"};
 
 
@@ -111,19 +99,14 @@ token scanner(){
 	    while (!estadoAceptor(estado)) {
 	    		
 			caracterLeido = (char) getchar();
-			 
-		//	printf("Lei: %c \n", caracterLeido);
-			 
+			 		 
 			 
 			estadoColumna = tipoDeCaracter(caracterLeido);
-		//	printf("(estadoFila): %d  \n", estado);
-		//	printf("tipo de caracter(estadoColumna): %d  \n", estadoColumna);
-		
+
 			
 			estadoColumna = tipoDeCaracter(caracterLeido);
 			estado = tabla[estado][estadoColumna];
-		//		printf("estado en tabla(estado): %d  \n \n", estado);
-			
+	
 				if (estadoCentinela(estado))
 				{
 					ungetc(caracterLeido,stdin);
