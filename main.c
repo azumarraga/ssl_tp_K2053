@@ -1,8 +1,55 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "scanner.h"
+#include "scanner.c"
 
+
+
+
+
+int main(){
+	
+	token tokenActual;
+
+	do{
+	
+	tokenActual=scanner();
+	printf("%s \n", nombreToken(tokenActual));
+	
+	
+	}while(tokenActual!=4);
+
+
+
+	
+/*
+  char caracterLeido2, caracterLeido3;
+caracterLeido2 = (char) getchar();
+printf("Lei: %c \n", caracterLeido2);
+
+ungetc(caracterLeido2,stdin);
+
+caracterLeido3 = (char) getchar();
+printf("Lei: %c \n", caracterLeido3);
+*/
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 int main()
 {
    // FILE * archivo = fopen("datosPrueba.txt", "r");
@@ -54,5 +101,5 @@ int main()
     printf("ERRORES: %d\n",auxTE);
     fclose(archivo);
 
-    return EXIT_SUCCESS;*/
-}
+    return EXIT_SUCCESS;
+*/

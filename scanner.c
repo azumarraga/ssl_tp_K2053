@@ -112,23 +112,23 @@ token scanner(){
 	    		
 			caracterLeido = (char) getchar();
 			 
-			//	printf("Lei: %c \n", caracterLeido);
+			printf("Lei: %c \n", caracterLeido);
 			 
 			 
 			estadoColumna = tipoDeCaracter(caracterLeido);
-		//		printf("tipo de caracter(estadoFila): %d  \n", estado);
-		//		printf("tipo de caracter(estadoColumna): %d  \n", estadoColumna);
+			printf("tipo de caracter(estadoFila): %d  \n", estado);
+			printf("tipo de caracter(estadoColumna): %d  \n", estadoColumna);
 		
 			
 			estadoColumna = tipoDeCaracter(caracterLeido);
 			estado = tabla[estado][estadoColumna];
-			//	printf("estado en tabla(estado): %d  \n \n", estado);
+				printf("estado en tabla(estado): %d  \n \n", estado);
 			
 				if (estadoCentinela(estado))
 				{
 					ungetc(caracterLeido,stdin);
 
-				//	printf("llegue aca ");
+					printf("llegue aca ");
 				}
 				else if (!caracterIgnorado(caracterLeido))
 				{
@@ -142,31 +142,3 @@ token scanner(){
 	
 }
 
-
-int main(){
-	
-	token i,c,a,b,d,e,f,l;
-
-	do{
-	
-	i=scanner();
-	printf("%s \n", nombreToken(i));
-	
-	
-	}while(i!=4);
-
-
-
-	
-/*
-  char caracterLeido2, caracterLeido3;
-caracterLeido2 = (char) getchar();
-printf("Lei: %c \n", caracterLeido2);
-
-ungetc(caracterLeido2,stdin);
-
-caracterLeido3 = (char) getchar();
-printf("Lei: %c \n", caracterLeido3);
-*/
-	
-}
