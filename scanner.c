@@ -1,60 +1,47 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
-#include "scanner.h"
 
-static char entrada[30];
-char * p;
-FILE* archivo;
+/////////SCANNER.H////////
 
 
+typedef enum {
+	IDENTIFICADOR,
+	CONSTANTE,
+	NUMERAL,
+	ERROR,
+	FDA
+} token;
+
+
+extern FILE * archivo;
+
+extern token tokenActual;
+extern char * p;
+extern char *Tokens[];
+extern int auxTI;
+extern int auxTC;
+extern int auxTN;
+extern int auxTE;
+char* nombreToken(token tok);
+token prox_token(void);
+void match(token tok);
+
+
+
+
+
+
+
+
+
+/////////////////////////////
 char* Tokens[] = {"IDENTIFICADOR", "CONSTANTE ENTERA", "NUMERAL", "ERROR", "FIN DE ARCHIVO"};
 
 
 char* nombreToken(token tok) {
 	return Tokens[tok];
 }
-
-
-int pedirAScanner = 1;
-token tokenActual;
-/*
-token prox_token() { // proximo token UTIL
-	if (pedirAScanner == 1) {
-             printf("holaa");
-		do {
-			tokenActual = scanner();
-      printf("tokenActial : %d",tokenActual);
-		} while (tokenActual == FDA);
-		pedirAScanner = 0;
-	}
-	return tokenActual;
-}
-*/
-
-
-token prox_token() { // proximo token UTIL
-	/*if (pedirAScanner == 1) {
-             printf("entro al if \n ");
-             tokenActual = scanner();
-               printf("pedi token : %d \n \n",tokenActual);
-	/*do {
-			tokenActual = scanner();
-      printf("tokenActial : %d",tokenActual);
-		} while (tokenActual == FDA);
-		pedirAScanner = 0;
-	}*/
-	int i=0;
-	unsigned char tokenaux[200];
-
-	while(archivo!=EOF){
-         tokenActual = scanner();
-         tokenaux[i]=tokenActual;
-         i++;
-         }
-	}
-
-
 
 
 enum {
@@ -113,54 +100,73 @@ static int tabla[9][6]={
 
 };
 
-void iniciarEntrada(char* b) {
-	b[0] = '\0';
-}
-
-void insertarEnEntrada(char* b, int* s, char c) {
-	b[(*s)++] = c;
-	b[*s] = '\0';
-}
-token scanner() {
-    FILE * archivo = fopen("datosPrueba.txt", "r");
-	char c;
-	int es;
-	int estado = 0;
-	int indexEntrada = 0;
-	token tok;
-	//char dd;
-    //char *entrada[0] = '\0';
-    //char *p = entrada;
-    iniciarEntrada(entrada);
-	p = entrada;
-	while (estado!=8) {
-		printf("estado actual: %d  \n", estado);
-        c = (char) fgetc(archivo);
-
-       printf("leido: %c  \n", c);
-      //  c= getchar();
-       // printf("tipo de caracter(es): %c  \n",dd );
-	    //putchar(dd);
-
-		es = tipoDeCaracter(c);
-
-		printf("tipo de caracter(es): %d  \n", es);
 
 
-		estado = tabla[estado][es];
-        printf("estado en tabla(estado): %d  \n \n", estado);
+token scanner(){
+		token tok;
+	    char caracterLeido;
+	    int estado=0;
+	    int estadoColumna;
+	    
+	    while (!estadoAceptor(estado)) {
+	    		
+			caracterLeido = (char) getchar();
+			 
+			//	printf("Lei: %c \n", caracterLeido);
+			 
+			 
+			estadoColumna = tipoDeCaracter(caracterLeido);
+		//		printf("tipo de caracter(estadoFila): %d  \n", estado);
+		//		printf("tipo de caracter(estadoColumna): %d  \n", estadoColumna);
+		
+			
+			estadoColumna = tipoDeCaracter(caracterLeido);
+			estado = tabla[estado][estadoColumna];
+			//	printf("estado en tabla(estado): %d  \n \n", estado);
+			
+				if (estadoCentinela(estado))
+				{
+					ungetc(caracterLeido,stdin);
 
-		if (estadoCentinela(estado)){
-			ungetc(c, archivo);}
-		else if (!caracterIgnorado(c)){
-            insertarEnEntrada(entrada, &indexEntrada, c);
+				//	printf("llegue aca ");
+				}
+				else if (!caracterIgnorado(caracterLeido))
+				{
+       				  //   insertarEnEntrada(entrada, &indexEntrada, c);
                 }
-	}
+	
+		}
 	tok = tipoDeToken(estado);
-
-		printf("numerotoken %d \n", tok);
-	    printf("nombre token %s \n", nombreToken(tok));
-
 	return tok;
+	
+	
 }
 
+
+int main(){
+	
+	token i,c,a,b,d,e,f,l;
+
+	do{
+	
+	i=scanner();
+	printf("%s \n", nombreToken(i));
+	
+	
+	}while(i!=4);
+
+
+
+	
+/*
+  char caracterLeido2, caracterLeido3;
+caracterLeido2 = (char) getchar();
+printf("Lei: %c \n", caracterLeido2);
+
+ungetc(caracterLeido2,stdin);
+
+caracterLeido3 = (char) getchar();
+printf("Lei: %c \n", caracterLeido3);
+*/
+	
+}
