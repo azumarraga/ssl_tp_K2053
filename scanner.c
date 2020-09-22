@@ -78,7 +78,7 @@ int estadoAceptor(int estado) {
 }
 
 int estadoCentinela(int estado) {
-	return (estado == 4 || estado == 5 || estado == 6 || estado == 7);
+	return (estado == 4 || estado == 5|| estado == 7);
 }
 
 int caracterIgnorado(char caracter) {
@@ -112,28 +112,23 @@ token scanner(){
 	    		
 			caracterLeido = (char) getchar();
 			 
-			printf("Lei: %c \n", caracterLeido);
+		//	printf("Lei: %c \n", caracterLeido);
 			 
 			 
 			estadoColumna = tipoDeCaracter(caracterLeido);
-			printf("tipo de caracter(estadoFila): %d  \n", estado);
-			printf("tipo de caracter(estadoColumna): %d  \n", estadoColumna);
+		//	printf("(estadoFila): %d  \n", estado);
+		//	printf("tipo de caracter(estadoColumna): %d  \n", estadoColumna);
 		
 			
 			estadoColumna = tipoDeCaracter(caracterLeido);
 			estado = tabla[estado][estadoColumna];
-				printf("estado en tabla(estado): %d  \n \n", estado);
+		//		printf("estado en tabla(estado): %d  \n \n", estado);
 			
 				if (estadoCentinela(estado))
 				{
 					ungetc(caracterLeido,stdin);
-
-					printf("llegue aca ");
 				}
-				else if (!caracterIgnorado(caracterLeido))
-				{
-       				  //   insertarEnEntrada(entrada, &indexEntrada, c);
-                }
+				
 	
 		}
 	tok = tipoDeToken(estado);

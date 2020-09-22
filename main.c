@@ -5,19 +5,35 @@
 
 
 
-
-
 int main(){
 	
 	token tokenActual;
+	
+	int tokensIDENTIFICADOR=0;
+    int tokensCONSTANTE=0;
+    int tokensNUMERAL=0;
+    int tokensERROR=0;
+		
 
 	do{
 	
 	tokenActual=scanner();
 	printf("%s \n", nombreToken(tokenActual));
 	
+	switch(tokenActual){
+            case 0: tokensIDENTIFICADOR++;
+                break;
+            case 1: tokensCONSTANTE++;
+                break;
+            case 2: tokensNUMERAL++;
+                break;
+            case 3: tokensERROR++;
+                break;
+				}
 	
 	}while(tokenActual!=4);
+	
+	printf("\n \nTotales: \n\nIdentificadores:%d \nConstantes enteras:%d \nNumerales:%d \nErrores:%d",tokensIDENTIFICADOR,tokensCONSTANTE,tokensNUMERAL,tokensERROR);
 
 
 
