@@ -1,25 +1,28 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "scanner.c"
+#include "scanner.h"
 
 
 
 int main(){
-	
-	token tokenActual=0;
-	
+
+	token tokenAux=0;
+
 	int tokensIDENTIFICADOR=0;
     int tokensCONSTANTE=0;
     int tokensNUMERAL=0;
     int tokensERROR=0;
-			
-	while(tokenActual!=4){
+
+	while(tokenAux!=FDA){
+
+		tokenAux=scanner();
 		
-			tokenActual=scanner();
-		printf("%s \n", nombreToken(tokenActual));
+		if(tokenAux!=FDA){ 
+			printf("%s \n", nombreToken(tokenAux));
+		}
 		
-		switch(tokenActual){
+		switch(tokenAux){
 	            case 0: tokensIDENTIFICADOR++;
 	                break;
 	            case 1: tokensCONSTANTE++;
@@ -28,29 +31,14 @@ int main(){
 	                break;
 	            case 3: tokensERROR++;
 	                break;
+				case 4: ;
+					break;
 					}
-					
+
 	}
 
 
-/*	do{
-	
-	tokenActual=scanner();
-	printf("%s \n", nombreToken(tokenActual));
-	
-	switch(tokenActual){
-            case 0: tokensIDENTIFICADOR++;
-                break;
-            case 1: tokensCONSTANTE++;
-                break;
-            case 2: tokensNUMERAL++;
-                break;
-            case 3: tokensERROR++;
-                break;
-				}
-	
-	}while(tokenActual!=4);
-	*/
+
 
 	printf("-------------------------------------------------\n");
     printf("Identificadores: %d\n",tokensIDENTIFICADOR);

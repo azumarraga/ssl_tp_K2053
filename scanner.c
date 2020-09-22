@@ -1,27 +1,8 @@
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
-
-
-
-typedef enum {
-	IDENTIFICADOR,
-	CONSTANTE,
-	NUMERAL,
-	ERROR,
-	FDA
-} token;
-
-
-
-
-char* nombreToken(token tok);
-
-
-
-
-
+#include "scanner.h"
 
 
 char* Tokens[] = {"IDENTIFICADOR", "CONSTANTE ENTERA", "NUMERAL", "ERROR", "FIN DE ARCHIVO"};
@@ -95,28 +76,28 @@ token scanner(){
 	    char caracterLeido;
 	    int estado=0;
 	    int estadoColumna;
-	    
+
 	    while (!estadoAceptor(estado)) {
-	    		
+
 			caracterLeido = (char) getchar();
-			 		 
-			 
+
+
 			estadoColumna = tipoDeCaracter(caracterLeido);
 
-			
+
 			estadoColumna = tipoDeCaracter(caracterLeido);
 			estado = tabla[estado][estadoColumna];
-	
+
 				if (estadoCentinela(estado))
 				{
 					ungetc(caracterLeido,stdin);
 				}
-				
-	
+
+
 		}
 	tok = tipoDeToken(estado);
 	return tok;
-	
-	
+
+
 }
 
