@@ -6,7 +6,9 @@ Trabajo Práctico realizado para la materia Sintaxis y Semantica de los Lenguaje
 Programaremos un autómata finito determinístico (AFD) que reconozca tres lenguajes, el de las
 constantes enteras, el de los identificadores y el de numeral.
 
-Lenguaje de las constantes enteras: son las cadenas formadas solamente por dígitos decimales
+Lenguaje de las constantes enteras: son las cadenas formadas solamente por dígitos decimales.
+
 Lenguaje de los identificadores: son las cadenas que comienzan con una letra (no importa si mayúscula
 o minúscula) y siguen luego con letras o dígitos.
+
 Lenguaje numeral: es un lenguaje formado solamente por un símbolo numeral.
