@@ -23,17 +23,19 @@ int main(){
 		}
 		
 		switch(tokenAux){
-	            case 0: tokensIDENTIFICADOR++;
+	            case IDENTIFICADOR: tokensIDENTIFICADOR++;
 	                break;
-	            case 1: tokensCONSTANTE++;
+	            case CONSTANTE: tokensCONSTANTE++;
 	                break;
-	            case 2: tokensNUMERAL++;
+	            case NUMERAL: tokensNUMERAL++;
 	                break;
-	            case 3: tokensERROR++;
+	            case ERROR: tokensERROR++;
 	                break;
-				case 4: ;
-					break;
+				case FDA: //findearchivo no hace nada
+				;
 					}
+
+
 
 	}
 

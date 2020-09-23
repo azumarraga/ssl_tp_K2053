@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "scanner.h"
 
 
@@ -23,12 +24,12 @@ enum {
 };
 
 int tipoDeCaracter(char c){
-    if ( c >= '0' && c <= '9' )                                  {return digito;}
-    else if(( c >= 'a' && c <= 'z' ) || ( c >= 'A' && c <= 'Z' )){return letra;}
-    else if (c == '#')                                           {return numeral;}
-    else if (c == ' ' || c == '	' || c == '\n')                  {return espacio;} //el primero es un espacio y el segundo una tabulacion!
-    else if (c == EOF)                                           {return fda;}
-    else                                                         {return error;}
+    if (isdigit(c) )              {return digito;}
+    else if(isalpha(c))			  {return letra;}
+    else if (c == '#')            {return numeral;}
+    else if (isspace(c))          {return espacio;} //el primero es un espacio y el segundo una tabulacion!
+    else if (c == EOF)            {return fda;}
+    else                          {return error;}
 }
 
 token tipoDeToken(int estado){
@@ -50,23 +51,14 @@ int estadoCentinela(int estado) {
 	return (estado == 4 || estado == 5|| estado == 7);
 }
 
-int caracterIgnorado(char caracter) {
-	return (caracter == ' ' || caracter == '\n');
-}
 
 
-static int tabla[9][6]={
+static int tabla[4][6]={
          //     Dig Letr # Esp eof otro
         /*0- */{ 1,  2,  6,  0,  8,  3}, // Inicial
         /*1  */{ 1,  4,  4,  4,  4,  4}, // Casos de cte entera
         /*2  */{ 2,  2,  5,  5,  5,  5}, // Casos de identificador
-        /*3  */{ 7,  7,  7,  7,  7,  3}, // Casos de error
-        /*4+ */{99, 99, 99, 99, 99, 99}, // Aceptor para cte entera
-        /*5+ */{99, 99, 99, 99, 99, 99}, // Aceptor para identificador
-        /*6+ */{99, 99, 99, 99, 99, 99}, // Aceptor para numeral
-        /*7+ */{99, 99, 99, 99, 99, 99}, // Aceptor para los errores
-        /*8+ */{99, 99, 99, 99, 99, 99} // Fin de archivo
-
+        /*3  */{ 7,  7,  7,  7,  7,  3} // Casos de error
 };
 
 
@@ -78,25 +70,21 @@ token scanner(){
 	    int estadoColumna;
 
 	    while (!estadoAceptor(estado)) {
-
 			caracterLeido = (char) getchar();
-
-
-			estadoColumna = tipoDeCaracter(caracterLeido);
-
-
 			estadoColumna = tipoDeCaracter(caracterLeido);
 			estado = tabla[estado][estadoColumna];
-
-				if (estadoCentinela(estado))
-				{
-					ungetc(caracterLeido,stdin);
-				}
-
-
+			
 		}
-	tok = tipoDeToken(estado);
-	return tok;
+
+		if(estadoAceptor(estado)){
+            if (estadoCentinela(estado)){
+                        ungetc(caracterLeido,stdin);
+                    }
+                    tok = tipoDeToken(estado);
+                    return tok;
+            }else{
+                return error;
+            }
 
 
 }
